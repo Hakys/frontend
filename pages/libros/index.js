@@ -35,18 +35,28 @@ const BookList = ({ books }) => {
     return (
         <div>
             <h1>Books List</h1>
-            <ul>
+            <ul data-cy="book-list">
                 {books.map(book => (
                     <li key={`book-${book.id}`}>
-                        <Link href={`/libros/${book.id}`}>{book.title}</Link> 
+                        <Link 
+                            href={`/libros/${book.id}`}
+                            data-cy={`link-to-visit-book-${book.id}`}
+                        >{book.title}</Link> 
                         {' - '}
-                        <Link href={`/libros/${book.id}/editar`}>Editar</Link>
+                        <Link 
+                            href={`/libros/${book.id}/editar`}
+                            data-cy={`link-to-edit-book-${book.id}`}
+                        >Editar</Link>
                         {' - '}
                         <form 
                             onSubmit={(e) => handleDelete(e, book.id)}
                             style={{display: 'inline'}}
                         >
-                            <button>Eliminar</button>
+                            <button
+                                data-cy={`link-to-delete-book-${book.id}`}
+                            >
+                                Eliminar
+                            </button>
                         </form>    
                     </li>
                 ))}

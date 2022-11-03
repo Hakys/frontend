@@ -1,5 +1,43 @@
-describe('empty spec', () => {
-  it('passes', () => {
-    cy.visit('https://example.cypress.io')
+describe('Books', () => {
+  it('can list, show, create, edit and delete books', () => {
+    // List books
+    cy.visit('/')
+    cy.get('[data-cy=link-to-books]')
+      .click()
+    // Create books
+    cy.get('[href="/libros/crear"]')
+      .click()
+    cy.get('[data-cy=input-book-title]')
+      .type('New book from Cypress')
+    cy.get('[data-cy=button-submit-book]')
+      .click()  
+    cy.get('[data-cy=book-list]')
+      .contains("New book from Cypress")
+    // Show book
+    cy.get('[data-cy^=link-to-visit-book-]') 
+      .last()
+      .click() 
+    cy.get('h1')
+      .should('contain.text', 'New book from Cypress')
+    cy.get('[href="/libros"]')
+      .click()
+    // Edit book
+    cy.get('[data-cy^=link-to-edit-book-]') 
+      .last()
+      .click()
+    cy.get('[data-cy=input-book-title]')
+      .clear()
+      .type('Book edited by Cypress')
+    cy.get('[data-cy=button-submit-book]')
+      .click() 
+    cy.get('[data-cy=book-list]')
+      .contains("Book edited by Cypress") 
+    // Delete book
+    cy.get('[data-cy^=link-to-delete-book-]') 
+      .last()
+      .click()  
+    cy.get('[data-cy^=link-to-visit-book-]') 
+      .last()
+      .should('not.contain.text', 'Book edited by Cypress')
   })
 })

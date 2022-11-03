@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 const BookDetail = ({ book }) => {
     return (
         <div>
-            <h1>Book Detail: {book.title}</h1>
+            <h1>{book.title}</h1>
 
             <Link href="/libros">Book List</Link>
         </div>
